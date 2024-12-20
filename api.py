@@ -78,8 +78,8 @@ def get_room_information(prompt: str = "Quelles salles sont disponibles ?"):
         "execution_time": execution_time
     }
 
-@app.get("/juridique")
-def get_legal_information(prompt: str = "Quels sont les aspects juridiques à connaître ?"):
+@app.get("/finances")
+def get_legal_information(prompt: str = "Quels sont les aspects financiers à connaître ?"):
     t0 = datetime.now()
 
     # Define the instruction for the "Juridique" agent
