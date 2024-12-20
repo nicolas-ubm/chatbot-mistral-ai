@@ -1,30 +1,49 @@
 from fastapi import FastAPI
 from transformers import pipeline
 from datetime import datetime
+import json
 
 app = FastAPI()
 
 # Initialize the pipeline for text generation
 pipe = pipeline("text-generation", model="mistralai/Mistral-7B-Instruct-v0.3")
 
+# Load agent information from agents.json
+with open("agents.json", "r", encoding="utf-8") as file:
+    agents_data = json.load(file)
+
+def get_agent_info(agent_id):
+    agent = agents_data.get(agent_id, {})
+    docs_content = "\n\n".join([
+        f"{doc['title']}\n{doc['content']}"
+        for doc in agent.get("agent_docs", {}).values()
+    ])
+    return docs_content
+
+
 @app.get("/")
 def root():
     return {"message": "L'API Back est opérationnelle."}
 
-
 @app.get("/infos")
 def get_general_information(prompt: str = "Que puis-je faire pour vous ?"):
     t0 = datetime.now()
+    print(prompt)
+    # Get agent documentation
+    agent_id = "id_agent0"  # ID for "Informations générales"
+    agent_docs = get_agent_info(agent_id)
 
     # Define the instruction for the "Informations générales" agent
     messages = [
         {
             "role": "system",
-            "content": (
+            "content":
                 "Tu es un assistant spécialisé en fourniture d'informations générales sur l'Université Bordeaux Montaigne. "
                 "Réponds aux questions concernant les étudiants, enseignants, programmes, infrastructures et tout autre aspect général. "
                 "Réponds toujours de manière concise et factuelle."
-            )
+                "Voici les informations pour t'aider à répondre :"
+                f"{agent_docs}"
+            
         },
         {
             "role": "user",
@@ -33,8 +52,11 @@ def get_general_information(prompt: str = "Que puis-je faire pour vous ?"):
     ]
 
     try:
-        response = pipe(messages, max_length=200, num_return_sequences=1)[0]["generated_text"]
+        response = pipe(messages, max_new_tokens=2050, max_length=500)[0]["generated_text"][2]["content"]
+        print(response)
+    
     except Exception as e:
+        print(e)
         return {"error": str(e)}
 
     t1 = datetime.now()
@@ -45,10 +67,11 @@ def get_general_information(prompt: str = "Que puis-je faire pour vous ?"):
         "execution_time": execution_time
     }
 
+
 @app.get("/salles")
 def get_room_information(prompt: str = "Quelles salles sont disponibles ?"):
     t0 = datetime.now()
-
+    print(prompt)
     # Define the instruction for the "Salles" agent
     messages = [
         {
@@ -66,8 +89,11 @@ def get_room_information(prompt: str = "Quelles salles sont disponibles ?"):
     ]
 
     try:
-        response = pipe(messages, max_length=200, num_return_sequences=1)[0]["generated_text"]
+        response = pipe(messages, max_new_tokens=2050, max_length=500)[0]["generated_text"][2]["content"]
+        print(response)
+
     except Exception as e:
+        print(e)
         return {"error": str(e)}
 
     t1 = datetime.now()
@@ -78,10 +104,12 @@ def get_room_information(prompt: str = "Quelles salles sont disponibles ?"):
         "execution_time": execution_time
     }
 
+
+
 @app.get("/finances")
 def get_legal_information(prompt: str = "Quels sont les aspects financiers à connaître ?"):
     t0 = datetime.now()
-
+    print(prompt)
     # Define the instruction for the "Juridique" agent
     messages = [
         {
@@ -99,8 +127,11 @@ def get_legal_information(prompt: str = "Quels sont les aspects financiers à co
     ]
 
     try:
-        response = pipe(messages, max_length=200, num_return_sequences=1)[0]["generated_text"]
+        response = pipe(messages, max_new_tokens=2050, max_length=500)[0]["generated_text"][2]["content"]
+        print(response)
+
     except Exception as e:
+        print(e)
         return {"error": str(e)}
 
     t1 = datetime.now()
@@ -114,7 +145,7 @@ def get_legal_information(prompt: str = "Quels sont les aspects financiers à co
 @app.get("/autres")
 def handle_other_requests(prompt: str = "Puis-je vous aider avec autre chose ?"):
     t0 = datetime.now()
-
+    print(prompt)
     # Define the instruction for the "Autres" agent
     messages = [
         {
@@ -132,8 +163,11 @@ def handle_other_requests(prompt: str = "Puis-je vous aider avec autre chose ?")
     ]
 
     try:
-        response = pipe(messages, max_length=200, num_return_sequences=1)[0]["generated_text"]
+        response = pipe(messages, max_new_tokens=2050, max_length=500)[0]["generated_text"][2]["content"]
+        print(response)
+
     except Exception as e:
+        print(e)
         return {"error": str(e)}
 
     t1 = datetime.now()
@@ -148,7 +182,7 @@ def handle_other_requests(prompt: str = "Puis-je vous aider avec autre chose ?")
 @app.get('/sentiments')
 def sentiment(prompt: str = "Que puis-je faire pour vous ?"):
     t0 = datetime.now()
-
+    print(prompt)
     # Prepare the input messages for the model
     messages = [
         {
@@ -171,7 +205,8 @@ def sentiment(prompt: str = "Que puis-je faire pour vous ?"):
     ]
 
     # Call the model and get the response
-    response = pipe(messages, max_length=200, num_return_sequences=1)[0]['generated_text']
+    response = pipe(messages, max_new_tokens=2050, max_length=500)[0]["generated_text"][2]["content"]
+    print(response)
 
     t1 = datetime.now()
     execution_time = (t1 - t0).total_seconds()
@@ -184,9 +219,9 @@ def sentiment(prompt: str = "Que puis-je faire pour vous ?"):
 
 
 @app.get('/chat')
-def bonjour(user_message: str = "Que puis-je faire pour vous ?"):
+def bonjour(prompt: str = "Que puis-je faire pour vous ?"):
     t0 = datetime.now()
-
+    print(prompt)
     # Prepare a greeting response
     messages = [
         {
@@ -200,13 +235,14 @@ def bonjour(user_message: str = "Que puis-je faire pour vous ?"):
         },
         {
             "role": "user",
-            "content": user_message
+            "content": prompt
         }
     ]
 
     # Call the model and get the response
-    response = pipe(messages, max_length=200, num_return_sequences=1)[0]['generated_text']
-
+    #response = pipe(messages, max_length=200, num_return_sequences=1)[0]['generated_text']
+    response = pipe(messages, max_new_tokens=2050, max_length=500)[0]["generated_text"][2]["content"]
+    print(response)
     t1 = datetime.now()
     execution_time = (t1 - t0).total_seconds()
 
