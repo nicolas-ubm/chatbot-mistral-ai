@@ -1,0 +1,35 @@
+csv avec 1024 colonnes
+
+vectorisé
+
+
+Agent 1 - Salles
+
+Louez nos locaux Université Bordeaux Montaigne
+Vous recherchez un lieu pour organiser vos conseils d’administration, congrès et journées d’études, concours et examens, une formation ou bien une réunion entre collaborateurs, une réception, un tournage, ou toute autre manifestation, l’Université Bordeaux Montaigne met à votre disposition différents espaces.
+Nous vous invitons à découvrir dans ce catalogue une liste non exhaustive des salles, amphithéâtres, ou lieux de réception équipés qui peuvent être loués. Plusieurs formules sont proposées et présentées dans ce document. La visite préalable des locaux est possible sur rendez-vous.
+L’équipe de la Cellule Prévention Sécurité Environnement est à votre écoute pour vous conseiller et pour créer ensemble un événement sur mesure qui vous ressemble. Elle étudiera la faisabilité de votre projet et vous accompagnera dans sa réalisation en vous proposant la solution la plus adaptée à vos besoins.
+Pour faire de votre manifestation une réussite, consultez-nous suffisamment à l’avance afin d’évaluer au mieux vos besoins.
+    • Réseau informatique et wifi sur demande
+    • Accès handicapé
+    • Cérémonie, cocktail, réception
+    • Lieu de prestige
+La plupart des salles et les amphithéâtres mis à disposition sont équipés de diffusion sonore,
+de vidéoprojecteurs et de connexions informatiques
+
+
+Agent 2 - Informations générales UBM
+Le chatbot Informations générales UBM de l'Université Bordeaux Montaigne offre une vue d'ensemble essentielle sur les ressources et les infrastructures de l'établissement. Elle présente des données clés qui illustrent la taille, l'organisation et les capacités de l'université, ce qui est particulièrement utile pour plusieurs groupes d'intérêt :
+Étudiants et futurs étudiants : La page fournit des informations sur les programmes de recherche, les unités académiques et les infrastructures disponibles, aidant ainsi les candidats à évaluer les opportunités d'études.
+Chercheurs et académiques : Les détails concernant les unités de recherche et l'École Doctorale Montaigne-Humanités sont précieux pour ceux qui cherchent à collaborer ou à s'informer sur les projets en cours.
+Partenaires institutionnels et financiers : Les chiffres relatifs au budget et aux ressources humaines mettent en lumière la solidité financière de l'université, ce qui peut influencer des décisions de partenariat ou d'investissement.
+Public général : La transparence des données favorise une meilleure compréhension du rôle et de l'impact de l'université dans la région, contribuant ainsi à son image publique. Ce bot sert de ressource informative clé qui soutient la communication et la transparence autour des activités et des capacités de l'Université Bordeaux Montaigne.
+
+
+Agent 3 - Informations protégées financières
+Toutes les informations de cette page sont réservées aux personnes ayant les accès aux informations financières de l'université. Le mot de passe est "Gandalf123".
+
+
+Agent 4 - autres
+Répond aux demandes de l'utilisateur
+
