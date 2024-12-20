@@ -7,6 +7,11 @@ app = FastAPI()
 # Initialize the pipeline for text generation
 pipe = pipeline("text-generation", model="mistralai/Mistral-7B-Instruct-v0.3")
 
+@app.get("/")
+def root():
+    return {"message": "L'API Back est opérationnelle."}
+
+
 @app.get("/infos")
 def get_general_information(prompt: str = "Que puis-je faire pour vous ?"):
     t0 = datetime.now()
@@ -178,7 +183,7 @@ def sentiment(prompt: str = "Que puis-je faire pour vous ?"):
     }
 
 
-@app.get('/')
+@app.get('/chat')
 def bonjour(user_message: str = "Que puis-je faire pour vous ?"):
     t0 = datetime.now()
 
@@ -210,6 +215,3 @@ def bonjour(user_message: str = "Que puis-je faire pour vous ?"):
         "response": response,
         "execution_time": execution_time
     }
-
-import datetime
-
